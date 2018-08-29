@@ -1,0 +1,30 @@
+td {
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    
+}
+
+table{
+    margin: auto;
+    padding: auto;
+}
+
+img{
+    height: 100px;
+    width: 100px;
+
+}
+
+[src="q-mark.jpg"]{
+    opacity: .5;
+}
+img:hover{
+    opacity: 1;
+}
+
+.playButton{
+    margin: auto;
+    padding: auto;
+    display: block;
+}
