@@ -1,6 +1,7 @@
 let library = ["img-bank/football.png", "img-bank/baseball.jpg", "img-bank/basketball.png", "img-bank/soccer.png", "img-bank/apple.jpg", "img-bank/banana.jpg", "img-bank/orange.jpg", "img-bank/strawberry.jpg", "img-bank/football.png", "img-bank/baseball.jpg", "img-bank/basketball.png", "img-bank/soccer.png", "img-bank/apple.jpg", "img-bank/banana.jpg", "img-bank/orange.jpg", "img-bank/strawberry.jpg"];
 let count = 0;
-let allImages = document.querySelectorAll("img");
+let allImages = document.querySelectorAll(".live");
+console.log(allImages);
 let playButton = document.getElementById("play-button");
 
 let square1img = document.getElementById("square1");
@@ -27,14 +28,24 @@ allImages.forEach(function (e) {
     e.addEventListener("click", reveal);
 });
 
+function addReveal(){
+    allImages.forEach(function (e){
+        e.addEventListener("click",reveal);
+    })
+}
 
+function stopReveal(){
+    allImages.forEach(function (all){
+        all.removeEventListener("click",reveal);
+    })
+}
 
 
 
 
 function counter() {
     // toggles the number of clicks then reverts images back to default
-    count++;
+   // count++;
     if (count % 2 === 0) {
         allImages.forEach(function (el) {
             el.src = "q-mark.jpg";
@@ -44,29 +55,45 @@ function counter() {
         ;
 }
 
-function stopReveal(){
-    allImages.forEach(function (all){
-        all.removeEventListener("click",reveal);
-    })
-}
+
 
 function reveal() {
+    count++;
     event.target.src = event.target.alt;
-    setTimeout(counter,3000);
-
-}
-
-
-
-
-
-
-
-function delayAfterShuffle() {
-    for (let j = 0; j < allImages.length; j++) {
-        allImages[j].src = "q-mark.jpg";
+    if(count % 2 ===0){
+        matchCheck();
+        stopReveal();
+        setTimeout(addReveal,2500);
     }
+    setTimeout(counter,3000);
+    
+
 }
+
+function matchCheck(){
+    //This will test to see if the images match
+    //Then execute some logic to permanently make those items unchanged
+  let checkArray = [];
+  for(let i=0; i<allImages.length;i++){
+      if(allImages[i].src != "file:///C:/Users/Dalton/Documents/codeslo/MemoryGame/q-mark.jpg"){
+          checkArray.push(allImages[i].src)
+          checkArray.push(allImages[i]);
+      }
+      
+  }
+   if(checkArray[0]===checkArray[2]){
+       alert("Match!");
+       checkArray[1].classList.remove("live");
+       checkArray[3].classList.remove("live");
+       allImages = document.querySelectorAll(".live");
+   }
+}
+
+
+function checkWin(){
+    // Win Logic
+}
+
 
 function shuffle() {
     for (let i = 0; i < allImages.length; i++) {
@@ -89,3 +116,8 @@ function shuffleArray(array) {
     }
 }
 
+function delayAfterShuffle() {
+    for (let j = 0; j < allImages.length; j++) {
+        allImages[j].src = "q-mark.jpg";
+    }
+}
